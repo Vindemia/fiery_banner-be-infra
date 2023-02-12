@@ -12,6 +12,7 @@ services:
     command: npm start
     volumes:
       - ./backend:/app
+      - /app/node_modules # anonymous volume for node_modules only
     ports:
       - "8080:8080"
   frontend:
