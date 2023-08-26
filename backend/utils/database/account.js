@@ -33,4 +33,18 @@ const login = async ({ username, password }) => {
     }
 }
 
-module.exports = { login, register }
+const updateCharacterList = async (userId, characterId) => {
+    const { client, db } = connectDb('ardent', 'auth')
+    const result = await db.updateOne(userId, { $push: { characterList: characterId } })
+    client.close()
+    return result
+}
+
+const chracterListByUserId = async (filter) => {
+    const { client, db } = connectDb('ardent', 'auth')
+    const result = await db.findOne(filter)
+    client.close()
+    return result.characterList
+}
+
+module.exports = { login, register, updateCharacterList, chracterListByUserId }
